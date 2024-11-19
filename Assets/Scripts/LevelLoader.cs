@@ -16,7 +16,7 @@ public class LevelLoader : MonoBehaviour
     
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             StartCoroutine(CarregarFase("Fase1"));
         }

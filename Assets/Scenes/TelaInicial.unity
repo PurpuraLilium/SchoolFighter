@@ -581,7 +581,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Precione qualquer tecla...
+  m_text: Precione enter para iniciar...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 07962c6018c98f949a5fafcf0cb5b9f9, type: 2}
   m_sharedMaterial: {fileID: 1207602053982076584, guid: 07962c6018c98f949a5fafcf0cb5b9f9, type: 2}
