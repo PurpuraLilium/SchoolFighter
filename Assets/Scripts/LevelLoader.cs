@@ -13,7 +13,6 @@ public class LevelLoader : MonoBehaviour
         
     }
 
-    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))

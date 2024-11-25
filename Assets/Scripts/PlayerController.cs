@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -13,12 +14,17 @@ public class PlayerController : MonoBehaviour
 
     private Animator playeranimator;
 
+    private int punchCont;
+    private float timeCross = 1.2f;
+
+    private bool comboControl;
+
+
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
 
         playeranimator = GetComponent<Animator>();
-
     }
     
     void Update()
@@ -26,6 +32,33 @@ public class PlayerController : MonoBehaviour
         PlayerMove();
 
         UpdateAnimator();
+
+        
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (IsWalking == false)
+            {
+
+                if (punchCont < 2)
+                {
+                    playerJab();
+                    punchCont++;
+
+                    if (!comboControl)
+                    {
+                        StartCoroutine(crossController());
+                    }
+                }
+
+                else if(punchCont >= 2)
+                {
+                    playerCross();
+                    punchCont = 0;
+                }
+                StopCoroutine(crossController());
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -70,5 +103,25 @@ public class PlayerController : MonoBehaviour
         PlayerFacingRight = !PlayerFacingRight;
 
         transform.Rotate(0 , 180  , 0);
+    }
+
+    void playerJab()
+    {
+        playeranimator.SetTrigger("IsJab");
+    }
+    void playerCross()
+    {
+        playeranimator.SetTrigger("IsCross");
+    }
+
+    IEnumerator crossController()
+    {
+        comboControl = true;
+
+        yield return new WaitForSeconds(timeCross);
+
+        punchCont = 0;
+
+        comboControl = false;
     }
 }
