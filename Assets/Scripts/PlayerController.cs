@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidBody;
 
     public float playerSpeed = 0.8f;
+    public float currentSpeed;
 
     public Vector2 playerDirection;
 
@@ -19,12 +20,16 @@ public class PlayerController : MonoBehaviour
 
     private bool comboControl;
 
+    private bool isDead;
 
+   
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
 
         playeranimator = GetComponent<Animator>();
+
+        currentSpeed = playerSpeed;
     }
     
     void Update()
@@ -37,9 +42,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (IsWalking == false)
-            {
-
                 if (punchCont < 2)
                 {
                     playerJab();
@@ -57,7 +59,6 @@ public class PlayerController : MonoBehaviour
                     punchCont = 0;
                 }
                 StopCoroutine(crossController());
-            }
         }
     }
 
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
             IsWalking= false;
         }
 
-        playerRigidBody.MovePosition(playerRigidBody.position + playerSpeed * Time.fixedDeltaTime * playerDirection);
+        playerRigidBody.MovePosition(playerRigidBody.position + currentSpeed * Time.fixedDeltaTime * playerDirection);
 
     }
 
@@ -123,5 +124,15 @@ public class PlayerController : MonoBehaviour
         punchCont = 0;
 
         comboControl = false;
+    }
+
+    void zeroSpeed()
+    {
+        currentSpeed = 0;
+    }
+
+    void resetSpeed()
+    {
+        currentSpeed = playerSpeed;
     }
 }
