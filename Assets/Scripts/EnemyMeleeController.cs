@@ -29,6 +29,18 @@ public class EnemyMeleeController : MonoBehaviour
 
     private float walkTimer;
 
+    //Variaveis para ataque
+    private float attackRate = 1f;
+    private float nextAttack;
+
+    //variaveis para dano
+    public int maxHealth;
+    private int currentHealth;
+
+    public float staggerTime = 0.5f;
+    private float damageTimer;
+    public bool isDamage;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -77,14 +89,29 @@ public class EnemyMeleeController : MonoBehaviour
             isWalking = true;
         }
 
+        //gerencia o tempo de stagger
+        if(isDamage && !isDead)
+        {
+            damageTimer += Time.deltaTime;
+
+            zeroSpeed();
+
+            if (damageTimer >= staggerTime)
+            {
+                isDamage = false;
+                damageTimer = 0;
+
+                resetSpeed();
+            }
+        }
+
         UptadeAnimator();
 
     }
 
     private void FixedUpdate()
     {
-        //Movimentação
-
+        //MOVIMENTAÇÃO
         //Variavel para armezanar a distancia com o player
         Vector3 targetDistance = target.position - transform.position;
 
@@ -108,11 +135,35 @@ public class EnemyMeleeController : MonoBehaviour
         //aplica velocidade e faz com que se movimente
 
         rb.linearVelocity = new Vector2(horizontalForce * currentSpeed, verticalForce * currentSpeed);
+
+        //ATAQUE
+        //Ataca se estiver perto do player a depender do tempo
+        if (Mathf.Abs(targetDistance.x) < 0.2f && Mathf.Abs(targetDistance.y) < 0.05 && Time.time > nextAttack)
+        {
+            animator.SetTrigger("Attack");
+
+            zeroSpeed();
+
+            nextAttack = Time.time + attackRate;
+        }
+
     }
 
     void UptadeAnimator()
     {
         animator.SetBool("isWalking", isWalking);
+    }
+
+    public void takeDamage(int damage)
+    {
+        if (!isDead) 
+        {
+            isDamage = true;
+
+            currentHealth -= damage;
+
+            animator.SetTrigger("HitDamage");
+        }
     }
 
     void zeroSpeed()
