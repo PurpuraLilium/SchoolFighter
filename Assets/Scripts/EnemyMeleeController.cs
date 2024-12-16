@@ -1,25 +1,23 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EnemyMeleeController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator animator;
 
-    //verifica se está vivo
-    public bool isDead;
-
-   
-
-    //verifica se está olhando para a direita
+    // Variavel que indica se o inimigo está vivo
+    public bool isDead;    
+    
+    // Variaveis para controlar o lado que o inimigo está virado
     public bool facingRight;
-    public bool previousDirectionR;
+    public bool previousDirectionRight;
 
-    //variavel para armazenar posição do player
+    // Variavel para armazenar posição do Player
     private Transform target;
 
-    //variaveis para movimentação
-    private float enemySpeed = 0.4f;
+    // Variaveis para movimentação do inimigo
+    private float enemySpeed = 0.3f;
     private float currentSpeed;
 
     private bool isWalking;
@@ -27,60 +25,73 @@ public class EnemyMeleeController : MonoBehaviour
     private float horizontalForce;
     private float verticalForce;
 
+    // Variavel que vamos usar para controlar o intervalo de tempo que o inimigo ficará andando vertical
+    // Isso vai ajudar à dar uma aleatoriedade ao movimento do inimigo
     private float walkTimer;
 
-    //Variaveis para ataque
+    // Variáveis para mecânica de ataque
     private float attackRate = 1f;
     private float nextAttack;
 
-    //variaveis para dano
+    // Variaveis para mecânica de dano
     public int maxHealth;
-    private int currentHealth;
+    public int currentHealth;
+    public Sprite enemyImage;
 
     public float staggerTime = 0.5f;
     private float damageTimer;
-    public bool isDamage;
-
+    public bool isTakingDamage;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-        //busca o player e armazena a posição
+        // Buscar o Player e armazenar sua posição
         target = FindAnyObjectByType<PlayerController>().transform;
 
+        // Inicializar a velocidade do inimigo
         currentSpeed = enemySpeed;
+
+        // Inicializar a vida do inimigo
+        currentHealth = maxHealth;
     }
 
     void Update()
     {
-        //verifica se o player está a direita/esquerda e vira o inimigo para o lado que o player está
-        if (target.position.x < transform.position.x)
+        // Verificar se o Player está para a Direita ou para a Esquerda
+        // E com isso determinar o lado que o Inimigo ficará virado
+        if (target.position.x < this.transform.position.x)
         {
             facingRight = false;
         }
         else
         {
-            facingRight = true;  
+            facingRight = true;
         }
 
-        if (facingRight && !previousDirectionR)
+        // Se facingRight for TRUE, vamos virar o inimigo em 180º no eixo Y,
+        // Senão vamos virar o inimigo para a esquerda
+
+        // Se o Player à direita e a direção anterior NÃO era direita (inimigo olhando para esquerda)
+        if (facingRight && !previousDirectionRight)
         {
-            transform.Rotate(0, 180, 0);
-            previousDirectionR = true;
+            this.transform.Rotate(0, 180, 0);
+            previousDirectionRight = true;
         }
-        if (!facingRight && previousDirectionR)
+
+        // Se o Player NÃO está à direita e a direção anterior ERA direita (inimigo olhando para direita)
+        if (!facingRight && previousDirectionRight)
         {
-            transform.Rotate(0, -180, 0);
-            previousDirectionR = false;
+            this.transform.Rotate(0, -180, 0);
+            previousDirectionRight = false;
         }
 
-        //iniciar o timer do caminhar horizontal
-
+        // Iniciar o timer do caminhar do inimigo
         walkTimer += Time.deltaTime;
 
-        //gerenciar animação
-        if(horizontalForce == 0 && verticalForce == 0)
+        // Gerenciar a animação do inimigo
+        if (horizontalForce == 0 && verticalForce == 0)
         {
             isWalking = false;
         }
@@ -89,90 +100,117 @@ public class EnemyMeleeController : MonoBehaviour
             isWalking = true;
         }
 
-        //gerencia o tempo de stagger
-        if(isDamage && !isDead)
+        // Gereciar o tempo de stagger
+        if (isTakingDamage && !isDead)
         {
             damageTimer += Time.deltaTime;
 
-            zeroSpeed();
+            ZeroSpeed();
 
             if (damageTimer >= staggerTime)
             {
-                isDamage = false;
+                isTakingDamage = false;
                 damageTimer = 0;
 
-                resetSpeed();
+                ResetSpeed();
             }
         }
 
-        UptadeAnimator();
-
+        // Atualiza o animator
+        UpdateAnimator();
     }
 
     private void FixedUpdate()
     {
-        //MOVIMENTAÇÃO
-        //Variavel para armezanar a distancia com o player
-        Vector3 targetDistance = target.position - transform.position;
-
-        //mathf.Abs sendo usado para tornar o segundo valor sempre positivo
-        horizontalForce = targetDistance.x / Mathf.Abs(targetDistance.x);
-
-        //Entre 1 e 2 seg , será feita uma definição de direção vertical
-        if (walkTimer >= Random.Range(1f, 2f))
+        if (!isDead)
         {
-            verticalForce = Random.Range(-1,2);
+            // MOVIMENTAÇÃO
 
-            walkTimer = 0;
+            // Variavel para armazenar a distancia entre o Inimigo e o Player
+            Vector3 targetDistance = target.position - this.transform.position;
+
+            // Determina se a força horizontal deve ser negativa ou positiva
+            // 5 / 5     =   1
+            // -5 / 5    =   -1
+            horizontalForce = targetDistance.x / Mathf.Abs(targetDistance.x);
+
+            // Entre 1 e 2 segundos, será feita uma definição de direção vertical
+            if (walkTimer >= Random.Range(1f, 2f))
+            {
+                verticalForce = Random.Range(-1, 2);
+
+                // Zera o timer de movimentação para andar verticalmente novamente daqui a +- 1 seg
+                walkTimer = 0;
+            }
+
+            // Caso esteja perto do Player, parar a movimentação
+            if (Mathf.Abs(targetDistance.x) < 0.2f)
+            {
+                horizontalForce = 0;
+            }
+
+            // Aplica velocidade no inimigo fazendo o movimentar
+            rb.linearVelocity = new Vector2(horizontalForce * currentSpeed, verticalForce * currentSpeed);
+
+            // ATAQUE
+            // Se estiver perto do Player e o timer do jogo for maior que o valor de nextAttack
+            if (Mathf.Abs(targetDistance.x) < 0.2f && Mathf.Abs(targetDistance.y) < 0.05f && Time.time > nextAttack)
+            {
+                // Executa animação de ataque
+                animator.SetTrigger("Attack");
+
+                ZeroSpeed();
+
+                // Pega o tempo atual e soma o attackRate, para definir a partir de quando o inimigo poderá atacar novamente
+                nextAttack = Time.time + attackRate;
+            }
         }
 
-        //parar a movimentação quando estiver perto do player
-        if(Mathf.Abs(targetDistance.x) < 0.15)
-        {
-            horizontalForce = 0;
-        }
-
-        //aplica velocidade e faz com que se movimente
-
-        rb.linearVelocity = new Vector2(horizontalForce * currentSpeed, verticalForce * currentSpeed);
-
-        //ATAQUE
-        //Ataca se estiver perto do player a depender do tempo
-        if (Mathf.Abs(targetDistance.x) < 0.2f && Mathf.Abs(targetDistance.y) < 0.05 && Time.time > nextAttack)
-        {
-            animator.SetTrigger("Attack");
-
-            zeroSpeed();
-
-            nextAttack = Time.time + attackRate;
-        }
-
+        
     }
 
-    void UptadeAnimator()
+    void UpdateAnimator()
     {
         animator.SetBool("isWalking", isWalking);
     }
 
-    public void takeDamage(int damage)
+    public void TakeDamage(int damage)
     {
-        if (!isDead) 
+        if (!isDead)
         {
-            isDamage = true;
+            isTakingDamage = true;
 
             currentHealth -= damage;
 
             animator.SetTrigger("HitDamage");
+
+            // Atualiza a UI do inimigo
+            FindFirstObjectByType<UIManager>().UpdateEnemyUI(maxHealth, currentHealth, enemyImage);
+
+            if (currentHealth <= 0)
+            {
+                isDead = true;
+
+                ZeroSpeed();
+
+                animator.SetTrigger("Dead");
+            }
         }
     }
 
-    void zeroSpeed()
+    void ZeroSpeed()
     {
         currentSpeed = 0;
     }
 
-    void resetSpeed()
+    void ResetSpeed()
     {
         currentSpeed = enemySpeed;
+    }
+
+    public void DisableEnemy()
+    {
+        // Desabilita este inimigo
+        this.gameObject.SetActive(false);
     }
 }

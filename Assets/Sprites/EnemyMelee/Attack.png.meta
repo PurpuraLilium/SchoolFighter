@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9cd2d56a1783d8a419345b4347cc6ea1
+guid: e809790ac43467f41a1b44e18913fe63
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -99,6 +99,32 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -113,6 +139,19 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -143,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bc98c48d42a4fc4eaf2ff57fac8a025
-      internalID: 24793577
+      spriteID: 235e6b94a96e8d143b5bb53982c7d154
+      internalID: 2088580783
       vertices: []
       indices: 
       edges: []
@@ -165,8 +204,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2e420de82a5cea42b793031a94cb337
-      internalID: -1001731606
+      spriteID: 896ee2d529d374f40a91329f004a3731
+      internalID: -1923268198
       vertices: []
       indices: 
       edges: []
@@ -187,8 +226,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 063fd19ae13ed8342b6a6cab324b15d6
-      internalID: -368354969
+      spriteID: 5fd067120c46b6947b4991b8017c61ab
+      internalID: -352271662
       vertices: []
       indices: 
       edges: []
@@ -209,8 +248,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6aa5744d268623547a111ddd2170c977
-      internalID: 870489197
+      spriteID: 761c6e19e2794bd468139c3f676beec4
+      internalID: 1503044445
       vertices: []
       indices: 
       edges: []
@@ -231,8 +270,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d134558b0dc491428b309f72102e296
-      internalID: -1425731292
+      spriteID: eea5f2c17d1431345896872706fb4429
+      internalID: 424250696
       vertices: []
       indices: 
       edges: []
@@ -253,8 +292,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5f75cc2dd713ff4fb5a1bb474ee56c7
-      internalID: 203753702
+      spriteID: 4718c7dbf53c02a47856fd0a6c2db3d1
+      internalID: -1523527202
       vertices: []
       indices: 
       edges: []
@@ -263,7 +302,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b9234fea5b2b420419737fa9bbf343ef
+    spriteID: 543b65f75c965f143888bd2d27eb092d
     internalID: 0
     vertices: []
     indices: 
@@ -273,12 +312,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Attack_0: 24793577
-      Attack_1: -1001731606
-      Attack_2: -368354969
-      Attack_3: 870489197
-      Attack_4: -1425731292
-      Attack_5: 203753702
+      Attack_0: 2088580783
+      Attack_1: -1923268198
+      Attack_2: -352271662
+      Attack_3: 1503044445
+      Attack_4: 424250696
+      Attack_5: -1523527202
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

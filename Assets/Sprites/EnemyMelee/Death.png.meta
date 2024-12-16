@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a4f7e456e231d564f9238f64d14b03c5
+guid: 5f4d1eb708fdb954b8fc7a6123cacbcc
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -99,6 +99,32 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -113,6 +139,19 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -143,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8978eed0d09b51438712f7cf7348d6b
-      internalID: 449513755
+      spriteID: f4627c78256fed14e8a83d5722a61800
+      internalID: 1498597845
       vertices: []
       indices: 
       edges: []
@@ -165,8 +204,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9024be450dc06e44395fe09300bd885e
-      internalID: -43521206
+      spriteID: f7414c3eb798e784983f694f9dd46473
+      internalID: -33136716
       vertices: []
       indices: 
       edges: []
@@ -187,8 +226,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 901a53e4a40c5f2488a9bb5c48ad1fce
-      internalID: 314391419
+      spriteID: 02275f1111f0f6846b94da748c985cae
+      internalID: -875863033
       vertices: []
       indices: 
       edges: []
@@ -209,8 +248,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a1b0f14645efff43bea9b6e3ab79b29
-      internalID: -243465467
+      spriteID: 5e544eab369129e48a1048c809aa1e4e
+      internalID: -1928841254
       vertices: []
       indices: 
       edges: []
@@ -231,8 +270,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1de66b5211733c54b9140ae4893d95be
-      internalID: -803811517
+      spriteID: ffb0ff533216c314b8b6524dbf7fed0a
+      internalID: 1679325092
       vertices: []
       indices: 
       edges: []
@@ -253,8 +292,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f49c576f4fbd6f44a25a7f001894280
-      internalID: -1851629805
+      spriteID: 94fd198307585cc4e9be9fc1a63c51f5
+      internalID: -460820743
       vertices: []
       indices: 
       edges: []
@@ -263,7 +302,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: dd25e76278b342649946967738e3f1c6
+    spriteID: adc1ae53bdf27d440948d40bf5423d53
     internalID: 0
     vertices: []
     indices: 
@@ -273,12 +312,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Death_0: 449513755
-      Death_1: -43521206
-      Death_2: 314391419
-      Death_3: -243465467
-      Death_4: -803811517
-      Death_5: -1851629805
+      Death_0: 1498597845
+      Death_1: -33136716
+      Death_2: -875863033
+      Death_3: -1928841254
+      Death_4: 1679325092
+      Death_5: -460820743
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

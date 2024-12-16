@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,32 +5,36 @@ using UnityEngine.SceneManagement;
 public class LevelLoader : MonoBehaviour
 {
     public Animator transition;
+    public float transitionTime = 1f;
 
-    public float TransitionTime = 1f;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
     }
 
+    // Update is called once per frame
     void Update()
     {
+        // Se pressionar qualquer tecla
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            //Mudar de Cena
             StartCoroutine(CarregarFase("Fase1"));
         }
     }
 
-    //Corrotina - Coroutine
-    IEnumerator CarregarFase(string NomeFase)
+    // Corrotina - Coroutine
+    IEnumerator CarregarFase(string nomeFase)
     {
-        //Iniciar animação
+        // Iniciar a animação
         transition.SetTrigger("Start");
+        
+        // Esperar o tempo de animação
+        yield return new WaitForSeconds(transitionTime);
 
-
-        //Espera o tempode animação
-        yield return new WaitForSeconds(TransitionTime);
-
-        //Carregar proxima cena
-        SceneManager.LoadScene(NomeFase);
+        // Carregar a cena
+        SceneManager.LoadScene(nomeFase);
     }
+
 }

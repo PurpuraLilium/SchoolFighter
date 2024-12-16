@@ -1,138 +1,179 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D playerRigidBody;
-
-    public float playerSpeed = 0.8f;
+    
+    public float playerSpeed = 0.6f;
     public float currentSpeed;
 
     public Vector2 playerDirection;
 
-    private bool IsWalking;
-    private bool PlayerFacingRight = true;
+    private bool isWalking;
 
-    private Animator playeranimator;
+    private Animator playerAnimator;
 
-    private int punchCont;
-    private float timeCross = 1.2f;
+    // Player olhando para a direita
+    private bool playerFacingRight = true;
 
+    //Variuavel contadora 
+    private int punchCount;
+
+    //Tempo de ataque 
+    private float timeCross = 1.3f;
     private bool comboControl;
 
+    // Indicar se o Player esta morto
     private bool isDead;
 
-   
+    // Propriedades para a UI
+    public int maxHealth = 10;
+    public int currentHealth;
+    public Sprite playerImage;
+    
     void Start()
     {
+        // Obtem e inicializa as propriedades do RigidBody2D
         playerRigidBody = GetComponent<Rigidbody2D>();
 
-        playeranimator = GetComponent<Animator>();
-
+        // Obtem e inicializa as propriedades do animator
+        playerAnimator = GetComponent<Animator>();
         currentSpeed = playerSpeed;
+
+        // Iniciar a vida do Player
+        currentHealth = maxHealth;
     }
-    
-    void Update()
+
+    private void Update()
     {
         PlayerMove();
-
         UpdateAnimator();
-
-        
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-                if (punchCont < 2)
-                {
-                    playerJab();
-                    punchCont++;
+            
+           
+            //Iniciar o temporizador
+            if (punchCount < 2)
+            {
 
-                    if (!comboControl)
-                    {
-                        StartCoroutine(crossController());
-                    }
-                }
+                PlayerJab();
+                punchCount++;
 
-                else if(punchCont >= 2)
+                if (!comboControl)
                 {
-                    playerCross();
-                    punchCont = 0;
+                    StartCoroutine(CrossController());
                 }
-                StopCoroutine(crossController());
-        }
+                    
+            }
+
+            else if (punchCount >= 2)
+            {
+                    
+                PlayerCross();
+                punchCount = 0;
+            }
+
+            //Parando o temporizador 
+            StopCoroutine(CrossController());            
+        }        
     }
 
+    // Fixed Update geralmente é utilizada para implementação de física no jogo
+    // Por ter uma execução padronizada em diferentes dispositivos
     private void FixedUpdate()
     {
+        // Verificar se o Player está em movimento
         if (playerDirection.x != 0 || playerDirection.y != 0)
         {
-            IsWalking = true;
-
+            isWalking = true;
         }
         else
         {
-            IsWalking= false;
+            isWalking = false;
         }
 
+        // playerRigidBody.MovePosition(playerRigidBody.position + playerSpeed * Time.fixedDeltaTime * playerDirection);
         playerRigidBody.MovePosition(playerRigidBody.position + currentSpeed * Time.fixedDeltaTime * playerDirection);
-
     }
 
     void PlayerMove()
     {
-        //Pega o input do jogador, e cria um Vector2 para usar no PlayerDirection
+        // Pega a entrada do jogador, e cria um Vector2 para usar no playerDirection
         playerDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        if (playerDirection.x < 0 && PlayerFacingRight)
-        {
-            flip();
-        }
         
-        else if (playerDirection.x > 0 && PlayerFacingRight == false)
+        // Se o player vai para a ESQUERDA e está olhando para a DIREITA
+        if (playerDirection.x < 0 && playerFacingRight)
         {
-            flip();
+            Flip();
+        }
+
+        // Se o player vai para a DIREITA e está olhando para ESQUERDA
+        else if (playerDirection.x > 0 && !playerFacingRight)
+        {
+            Flip();
         }
     }
 
     void UpdateAnimator()
     {
-        playeranimator.SetBool("IsWalking" , IsWalking);
+        // Definir o valor do parâmetro do animator, igual à propriedade isWalking
+        playerAnimator.SetBool("isWalking", isWalking);
     }
 
-    void flip()
+    void Flip()
     {
-        PlayerFacingRight = !PlayerFacingRight;
+        // Vai girar o sprite do player em 180º no eixo Y
 
-        transform.Rotate(0 , 180  , 0);
+        // Inverter o valor da variável playerfacingRight
+        playerFacingRight = !playerFacingRight;
+
+        // Girar o sprite do player em 180º no eixo Y
+        // X, Y, Z
+        transform.Rotate(0, 180, 0);
     }
 
-    void playerJab()
+
+    void PlayerJab()
     {
-        playeranimator.SetTrigger("IsJab");
-    }
-    void playerCross()
-    {
-        playeranimator.SetTrigger("IsCross");
+        //Acessa a animação do JAb
+        //Ativa o gatilho de ataque Jab
+        playerAnimator.SetTrigger("isJab");
     }
 
-    IEnumerator crossController()
+    void PlayerCross()
+    {
+        playerAnimator.SetTrigger("isCross");
+    }
+    IEnumerator CrossController()
     {
         comboControl = true;
 
         yield return new WaitForSeconds(timeCross);
-
-        punchCont = 0;
+        punchCount = 0;
 
         comboControl = false;
     }
 
-    void zeroSpeed()
+    void ZeroSpeed()
     {
         currentSpeed = 0;
     }
 
-    void resetSpeed()
+    void ResetSpeed()
     {
         currentSpeed = playerSpeed;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (!isDead)
+        {
+            currentHealth -= damage;
+            playerAnimator.SetTrigger("HitDamage");
+            FindFirstObjectByType<UIManager>().UpdatePlayerHealth(currentHealth);
+        }
     }
 }

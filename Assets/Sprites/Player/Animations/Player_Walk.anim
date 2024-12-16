@@ -21,19 +21,19 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -2357092860926513972, guid: 999be5047c78f0c489d591fd6f37a870, type: 3}
-    - time: 0.14285715
-      value: {fileID: 7051805048657088764, guid: 999be5047c78f0c489d591fd6f37a870, type: 3}
-    - time: 0.2857143
-      value: {fileID: -2890445269245295786, guid: 999be5047c78f0c489d591fd6f37a870, type: 3}
-    - time: 0.42857143
-      value: {fileID: -6012852112628322871, guid: 999be5047c78f0c489d591fd6f37a870, type: 3}
+      value: {fileID: -5365317485608596090, guid: cf28162eb5804cb4c85ca6203438c3e4, type: 3}
+    - time: 0.2
+      value: {fileID: -2624002919008313500, guid: cf28162eb5804cb4c85ca6203438c3e4, type: 3}
+    - time: 0.4
+      value: {fileID: 7594627523427213958, guid: cf28162eb5804cb4c85ca6203438c3e4, type: 3}
+    - time: 0.6
+      value: {fileID: 6130417586920967476, guid: cf28162eb5804cb4c85ca6203438c3e4, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 7
+  m_SampleRate: 5
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -50,16 +50,16 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -2357092860926513972, guid: 999be5047c78f0c489d591fd6f37a870, type: 3}
-    - {fileID: 7051805048657088764, guid: 999be5047c78f0c489d591fd6f37a870, type: 3}
-    - {fileID: -2890445269245295786, guid: 999be5047c78f0c489d591fd6f37a870, type: 3}
-    - {fileID: -6012852112628322871, guid: 999be5047c78f0c489d591fd6f37a870, type: 3}
+    - {fileID: -5365317485608596090, guid: cf28162eb5804cb4c85ca6203438c3e4, type: 3}
+    - {fileID: -2624002919008313500, guid: cf28162eb5804cb4c85ca6203438c3e4, type: 3}
+    - {fileID: 7594627523427213958, guid: cf28162eb5804cb4c85ca6203438c3e4, type: 3}
+    - {fileID: 6130417586920967476, guid: cf28162eb5804cb4c85ca6203438c3e4, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5714286
+    m_StopTime: 0.8
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -80,7 +80,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: resetSpeed
+    functionName: ResetSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
